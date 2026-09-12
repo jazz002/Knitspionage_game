@@ -66,7 +66,8 @@
     <p class="badge">Orders</p>
     <h2>Your Instructions</h2>
     <div class="npc-box">"Look for anything out of the ordinary. Encode your observations in your stitches as you ride. Keep your knitting neat — too many mistakes, and the wrong eyes may notice. Deliver the finished piece in <strong id="mission-platform-ref">your destination</strong>. Godspeed."</div>
-    <p>Look out the window and observe your surroundings. Translate it to Morse, then knit it: <strong>knit = dot · purl = dash</strong>. The cheat sheet stays with you throughout.</p>
+    <p>Look out the window and observe your surroundings. Translate it to Morse, then knit it:</p> 
+    <p><strong>knit = dot · purl = dash</strong>.</p>
     <div class="progress-dots" id="mission-progress"></div>
     <button onclick="startObservation()">Look out the window →</button>
   </section>
@@ -81,9 +82,11 @@
       <div class="observation-text" id="observation-text"></div>
     </div>
 
-    <p class="target-word" id="target-word"></p>
+    <button class="secondary" onclick="revealTargetWord()" id="reveal-word-btn">Secret Message</button>
+    <p class="target-word" id="target-word" style="display:none;"></p>
 
-    <p>Encode this word into your knitting. Build the row stitch by stitch — use the cheat sheet if you need it.</p>
+    <p>Encode this word into your knitting.</p>
+    <p>Use the cheat sheet if you need it.</p>
 
     <div class="row" style="margin-top:0;">
       <button class="secondary" onclick="toggleCheatsheet()" id="cheatsheet-toggle-btn">Show Cheat Sheet</button>

@@ -45,6 +45,12 @@ function toggleTutorialCheatsheet() {
   btn.textContent = visible ? 'Show Cheat Sheet' : 'Hide Cheat Sheet';
 }
 
+function revealTargetWord() {
+  document.getElementById('target-word').style.display = 'block';
+  document.getElementById('reveal-word-btn').style.display = 'none';
+}
+
+
 /* ---------------- SCENE NAV ---------------- */
 function goTo(id) {
   document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
@@ -205,6 +211,9 @@ function buildEncodeScene() {
   // reset cheat sheet to hidden each round
   document.getElementById('cheatsheet-encode').style.display = 'none';
   document.getElementById('cheatsheet-toggle-btn').textContent = 'Show Cheat Sheet';
+  // reset target word to hidden each round
+  document.getElementById('target-word').style.display = 'none';
+  document.getElementById('reveal-word-btn').style.display = 'inline-block';
 
   playerSeq = [];
   renderEncodeGrid();

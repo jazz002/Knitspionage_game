@@ -227,7 +227,7 @@ body {
   width: 85%;
   font-family: Georgia, serif;
   font-style: italic;
-  font-size: 13px;
+  font-size: 16px;
   color: #1a1410;
   text-align: center;
   line-height: 1.5;
@@ -266,7 +266,7 @@ body {
   }
 
   .target-word {
-    font-size: 13px;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--thread-rust);
