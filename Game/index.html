@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stitch & Code</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div id="app">
+
+  <!-- SCENE 0: TITLE -->
+  <section class="scene active" id="scene-title">
+    <p class="eyebrow">A Serious Game · Prototype</p>
+    <h1>Knitspionage</h1>
+    <p>Salzburg, 1943. You are a courier travelling by rail, your knitting basket is your cover. Everything you see from this window must reach the resistance — encoded in wool, row by row.</p>
+    <div class="history-box">
+      During both World Wars, knitters really were suspected of — and in some cases used for — encoding messages in their stitch patterns. Irregularities invisible to a casual glance could carry real intelligence. This game lets you try the craft yourself.
+    </div>
+    <button onclick="goTo('decode')">Begin Briefing →</button>
+  </section>
+
+  <!-- SCENE 1: DECODE TUTORIAL -->
+  <section class="scene" id="scene-decode">
+    <p class="badge">Briefing</p>
+    <h2>Read the Courier's Scarf</h2>
+    <p>Before you encode, you must learn to read. Headquarters has sent you a knitted hat with your exit instructions hidden in the work.
+      The hat is a simple pattern of knit and purl stitches. Each stitch represents a dot (knit) or dash (purl) in Morse code.</p>
+    <p>Between each letter there are three knit stitches to signal the gap (/) between them. </p>
+    <p>Click each stitch below, left to right, to reveal which train you have to board and where you are headed.</p>
+
+    <div class="stitch-grid" id="tutorial-stitches"></div>
+    <p style="font-size:12px; opacity:0.65; margin-top:-6px;">↑ Click a stitch to reveal it</p>
+
+    <p><strong>Decoded message:</strong> <span id="tutorial-answer-display" style="letter-spacing:2px;">? ? ? ? ? ?</span></p>
+    
+    <p>To decode and encode messages, you have been given a cheat sheet of letters and their Morse equivalents.</p>
+    <button class="secondary" onclick="toggleCheatsheet()" id="cheatsheet-toggle-btn">Show Cheat Sheet</button>
+    <div class="cheatsheet" id="cheatsheet" style="display: none;"></div>
+
+    <div class="row">
+      <button onclick="showTutorialSolution()" id="tutorial-continue-btn">Understood — Continue →</button>
+    </div>
+  </section>
+
+  <!-- SCENE 2: MISSION INTRO -->
+  <section class="scene" id="scene-mission">
+    <p class="badge">Orders</p>
+    <h2>Your Instructions</h2>
+    <div class="npc-box">"Five sightings. Encode each in your stitches as you ride. Keep your pattern clean — too many mistakes, and the wrong eyes may notice. Deliver the finished piece in <strong id="mission-platform-ref">your destination</strong>. Godspeed."</div>
+    <p>Each time you look out the window, you'll see something worth reporting. Translate it to Morse, then knit it: <strong>knit = dot · purl = dash</strong>. The cheat sheet stays with you throughout.</p>
+    <div class="progress-dots" id="mission-progress"></div>
+    <button onclick="startObservation()">Look out the window →</button>
+  </section>
+
+  <!-- SCENE 3: OBSERVE + ENCODE (repeats x3) -->
+  <section class="scene" id="scene-encode">
+    <p class="badge" id="encode-counter">Sighting 1 of 3</p>
+    <h2>What do you see?</h2>
+
+    <div class="window-frame">
+      <div class="silhouette" id="window-silhouette">🚂</div>
+      <div class="caption">CARRIAGE 4 · WINDOW SEAT</div>
+    </div>
+
+    <div class="observation-text" id="observation-text"></div>
+    <p class="target-word" id="target-word"></p>
+
+    <p>Encode this word into your knitting. Build the row stitch by stitch — use the cheat sheet if you need it.</p>
+
+    <div class="row" style="margin-top:0;">
+      <button class="secondary" onclick="toggleCheatsheet()" id="cheatsheet-toggle-btn">Show Cheat Sheet</button>
+    </div>
+    <div class="cheatsheet" id="cheatsheet-encode" style="display:none;"></div>
+
+    <div class="stitch-grid" id="encode-grid"></div>
+    <div class="morse-input-display" id="morse-progress"></div>
+
+    <div class="row">
+      <button onclick="addStitch('knit')">● Knit (dot)</button>
+      <button onclick="addStitch('purl')">▬ Purl (dash)</button>
+      <button class="secondary" onclick="addStitch('gap')">/ Letter gap</button>
+      <button class="secondary" onclick="undoStitch()">Undo</button>
+    </div>
+
+    <div style="margin-top:18px;">
+      <div class="meter-label"><span>Suspicion</span><span id="suspicion-pct">0%</span></div>
+      <div class="meter-track"><div class="meter-fill" id="meter-fill"></div></div>
+    </div>
+
+    <div class="row">
+      <button onclick="submitRow()" id="submit-btn" disabled>Finish this row →</button>
+    </div>
+  </section>
+
+  <!-- SCENE 4: NPC INTERRUPTION (conditional) -->
+  <section class="scene" id="scene-npc">
+    <p class="badge">! Interruption</p>
+    <h2>A Fellow Passenger Leans In</h2>
+    <div class="npc-box" id="npc-line">"Lovely stitch work — though I don't believe I've seen that pattern. May I see?"</div>
+    <p>How do you respond?</p>
+    <div class="row">
+      <button onclick="npcChoice('show')">Show her the work, calmly</button>
+      <button onclick="npcChoice('distract')">Distract her — comment on the weather</button>
+      <button onclick="npcChoice('hide')">Quickly tuck it away</button>
+    </div>
+  </section>
+
+  <!-- SCENE 4c: TICKET CONTROLLER INTERRUPTION (second, different interruption) -->
+  <section class="scene" id="scene-controller">
+    <p class="badge">! Interruption</p>
+    <h2>The Ticket Controller Arrives</h2>
+    <div class="npc-box">"Tickets, please." He checks yours, then lingers, glancing down at the needles in your lap. "Long journey to occupy yourself with. May I see what you're making?"</div>
+    <p>How do you respond?</p>
+    <div class="row">
+      <button onclick="controllerChoice('show')">Hand it over, calmly</button>
+      <button onclick="controllerChoice('chat')">Make pleasant conversation, keep knitting</button>
+      <button onclick="controllerChoice('hide')">Quickly tuck it away</button>
+    </div>
+  </section>
+
+  <!-- SCENE 4b: NPC RESULT -->
+  <section class="scene" id="scene-npc-result">
+    <p class="badge" id="npc-result-badge">Outcome</p>
+    <h2 id="npc-result-title"></h2>
+    <div class="npc-box" id="npc-result-text"></div>
+    <button onclick="proceedAfterRow()">Continue →</button>
+  </section>
+
+  <!-- SCENE 5: WIN -->
+  <section class="scene" id="scene-win">
+    <p class="badge">Mission Complete</p>
+    <div class="end-title">Delivered Safely</div>
+    <p>You arrive in <strong id="win-platform-ref">your destination</strong> to hand over the scarf. Five sightings, now hidden in wool, are on their way to those who need them.</p>
+    <div class="history-box">
+      <strong>The real history:</strong> Knitters in WWI and WWII Belgium reportedly tracked train movements from windows overlooking railway lines, recording troop counts and timings in patterns for the resistance. 
+    </div>
+    <p>Final suspicion level: <strong id="final-suspicion">—</strong></p>
+    <div class="row">
+      <button onclick="restart()">Ride Again →</button>
+      <button class="secondary" onclick="goTo('resources')">Sources &amp; More →</button>
+    </div>
+  </section>
+
+  <!-- SCENE 6: CAUGHT -->
+  <section class="scene" id="scene-caught">
+    <p class="badge">Mission Failed</p>
+    <div class="end-title">Your Cover Is Blown</div>
+    <p>The conductor's eyes linger too long on your needles. At the next stop, two officers are waiting on the platform. Your basket is searched.</p>
+    <div class="history-box">
+      Real couriers relied on absolute consistency — an irregular stitch in an otherwise plain pattern was exactly the kind of detail a trained eye could catch. Precision was the whole craft.
+    </div>
+    <div class="row">
+      <button onclick="restart()">Try Again →</button>
+      <button class="secondary" onclick="goTo('resources')">Sources &amp; More →</button>
+    </div>
+  </section>
+
+  <!-- SCENE 7: RESOURCES (unlocked after completing the game) -->
+  <section class="scene" id="scene-resources">
+    <p class="badge">Appendix</p>
+    <h2>Sources &amp; Further Reading</h2>
+    <p>"Knitspionage" draws on real historical research into knitting, espionage, and coded communication. Some more information about knitting and code:</p>
+    <div class="history-box">
+      <strong><a href="https://www.atlasobscura.com/articles/knitting-spies-wwi-wwii">On Knitspionage</a> </strong><br>
+      <br><br>
+      <strong><a href="http://opentranscripts.org/transcript/knit-popular-history-media/">"How to Knit a Popular History of Media" by Kirsten Hering</a></strong><br>
+      <br><br>
+      <strong><a href="http://opentranscripts.org/transcript/knit-one-compute-one/">"Knit one Compute one" by Kris Howard</a></strong><br>
+      <br><br>
+      
+    </div>
+
+    <h2>Try It Yourself</h2>
+    <p>Want to encode your own message in a real knitting pattern? A freestyle pattern encoder is in the works — turn any word into a chart you can knit by hand.</p>
+    <div class="row">
+      <button disabled>Open Pattern Encoder — Coming Soon</button>
+    </div>
+
+    <div class="row" style="margin-top:28px;">
+      <button class="secondary" onclick="restart()">← Back to Title</button>
+    </div>
+  </section>
+
+  <div class="footer-note">"Knitspionage" — prototype build.</div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
