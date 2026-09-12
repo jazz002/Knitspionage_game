@@ -7,6 +7,21 @@ const MORSE = {
   '4':'....-','5':'.....','6':'-....','7':'--...','8':'---..','9':'----.'
 };
 
+const hornSound = new Audio('horn.mp3');
+const steamSound = new Audio('steam.mp3');
+steamSound.loop = true;
+steamSound.volume = 0.2;
+
+const steamScenes = ['mission', 'encode', 'npc', 'controller', 'npc-result'];
+
+function handleAudio(sceneId) {
+  if (steamScenes.includes(sceneId)) {
+    if (steamSound.paused) steamSound.play();
+  } else {
+    steamSound.pause();
+  }
+}
+
 function buildCheatsheet(container) {
   const letters = Object.keys(MORSE).filter(k => isNaN(k));
   container.innerHTML = letters.map(l =>
@@ -35,6 +50,7 @@ function goTo(id) {
   document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
   document.getElementById('scene-' + id).classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
+  handleAudio(id);
 }
 
 /* ---------------- TUTORIAL DECODE ---------------- */
@@ -61,7 +77,9 @@ function setupTutorial() {
 
   tutorialRevealed = tutorialMorseSeq.map(() => false);
   renderTutorialGrid();
-  document.getElementById('tutorial-answer-display').textContent =
+ 
+  const answerDisplay = document.getElementById('tutorial-answer-display');
+  if (answerDisplay) answerDisplay.textContent =
     TUTORIAL_WORD.split('').map(c => c === ' ' ? '  ' : '?').join(' ');
 }
 
@@ -138,6 +156,7 @@ function showTutorialSolution() {
   // store the decoded destination for later reference
   window.deliveryPlatform = TUTORIAL_WORD;
   document.getElementById('mission-platform-ref').textContent = TUTORIAL_WORD;
+  hornSound.play();
   goTo('mission');
   buildMissionProgress();
 }
@@ -281,6 +300,8 @@ function proceedAfterRow() {
     finishMission();
   } else {
     buildMissionProgress();
+    hornSound.currentTime = 0;
+    hornSound.play();
     goTo('mission');
   }
 }
