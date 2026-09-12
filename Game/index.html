@@ -26,8 +26,8 @@
   <!-- SCENE 1: DECODE TUTORIAL -->
   <section class="scene" id="scene-decode">
     <p class="badge">Briefing</p>
-    <h2>Read the Courier's Scarf</h2>
-    <p>Before you encode, you must learn to read. Headquarters has sent you a knitted hat with your exit instructions hidden in the work.
+    <h2>Read the Courier's Hat</h2>
+    <p>Before you encode, you must learn to read the code. Headquarters has sent you a knitted hat with your exit instructions hidden in the work.
       The hat is a simple pattern of knit and purl stitches. Each stitch represents a dot (knit) or dash (purl) in Morse code.</p>
     <p>Between each letter there are three knit stitches to signal the gap (/) between them. </p>
     <p>Click each stitch below, left to right, to reveal which train you have to board and where you are headed.</p>
@@ -37,7 +37,7 @@
 
     <p><strong>Decoded message:</strong> <span id="tutorial-answer-display" style="letter-spacing:2px;">? ? ? ? ? ?</span></p>
     
-    <p>To decode and encode messages, you have been given a cheat sheet of letters and their Morse equivalents.</p>
+    <p>Inside the hat you find a little folded up pice of paper - Headquarters has sent you a cheat sheet to help you decode the message. This will be helpful for encoding as well!</p>
     <button class="secondary" onclick="toggleCheatsheet()" id="cheatsheet-toggle-btn">Show Cheat Sheet</button>
     <div class="cheatsheet" id="cheatsheet" style="display: none;"></div>
 
@@ -62,11 +62,10 @@
     <h2>What do you see?</h2>
 
     <div class="window-frame">
-      <div class="silhouette" id="window-silhouette">🚂</div>
       <div class="caption">CARRIAGE 4 · WINDOW SEAT</div>
+      <div class="observation-text" id="observation-text"></div>
     </div>
 
-    <div class="observation-text" id="observation-text"></div>
     <p class="target-word" id="target-word"></p>
 
     <p>Encode this word into your knitting. Build the row stitch by stitch — use the cheat sheet if you need it.</p>
@@ -82,7 +81,7 @@
     <div class="row">
       <button onclick="addStitch('knit')">● Knit (dot)</button>
       <button onclick="addStitch('purl')">▬ Purl (dash)</button>
-      <button class="secondary" onclick="addStitch('gap')">/ Letter gap</button>
+      <button class="secondary" onclick="addStitch('gap')">/ 3x Knit (Letter gap)</button>
       <button class="secondary" onclick="undoStitch()">Undo</button>
     </div>
 

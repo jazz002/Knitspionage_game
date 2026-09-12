@@ -127,11 +127,11 @@ function showTutorialSolution() {
 
 /* ---------------- MISSION STATE ---------------- */
 const OBSERVATIONS = [
-  { word: 'TROOPS', text: 'Soldiers massing beside the platform — far more than usual.', icon: '🪖' },
-  { word: 'TANK', text: 'An armored vehicle idles on a flatbed car, half-covered by tarp.', icon: '🚃' },
-  { word: 'BRIDGE', text: 'Engineers inspect the rail bridge ahead, taking careful measurements.', icon: '🌉' },
-  { word: 'RADIO', text: 'An antenna mast rises from a requisitioned farmhouse roof.', icon: '📡' },
-  { word: 'DAWN', text: 'A convoy departs just before first light, heading north.', icon: '🌄' }
+  { word: 'TROOPS', text: 'Soldiers massing beside the platform — far more than usual.' },
+  { word: 'TANK', text: 'An armored vehicle idles on a flatbed car, half-covered by tarp.'},
+  { word: 'BRIDGE', text: 'Engineers inspect the rail bridge ahead, taking careful measurements.'},
+  { word: 'RADIO', text: 'An antenna mast rises from a requisitioned farmhouse roof.'},
+  { word: 'DAWN', text: 'A convoy departs just before first light, heading north.'}
 ];
 
 let currentSighting = 0;
@@ -158,7 +158,6 @@ function buildEncodeScene() {
   document.getElementById('encode-counter').textContent = `Sighting ${currentSighting + 1} of ${OBSERVATIONS.length}`;
   document.getElementById('observation-text').textContent = `"${obs.text}"`;
   document.getElementById('target-word').innerHTML = `<span class="label">Word to encode:</span>${obs.word}`;
-  document.getElementById('window-silhouette').textContent = obs.icon;
   buildCheatsheet(document.getElementById('cheatsheet-encode'));
 
   currentEncodeSeq = [];
