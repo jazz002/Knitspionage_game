@@ -91,11 +91,6 @@ function renderTutorialGrid() {
   });
 }
 
-function revealTutorialStitch(i) {
-  tutorialRevealed[i] = true;
-  renderTutorialGrid();
-  updateTutorialAnswer();
-}
 
 function updateTutorialAnswer() {
   // figure out which letters are now fully revealed
@@ -108,7 +103,29 @@ function updateTutorialAnswer() {
     display += (slice.every(v => v) ? ch : '?') + ' ';
     i += len + 1; // +1 for the gap stitch
   });
-  document.getElementById('tutorial-answer-display').textContent = display.trim();
+  const display1 = document.getElementById('tutorial-answer-display');
+  if (display1) display1.textContent = display.trim();
+  document.getElementById('tutorial-answer-display-2').textContent = display.trim();
+}
+
+function openHat() {
+  const grid = document.getElementById('tutorial-stitches');
+  const target = document.getElementById('tutorial-stitches-copy');
+  target.innerHTML = grid.innerHTML;
+  buildCheatsheet(document.getElementById('cheatsheet'));
+  goTo('decode-2');
+}
+
+function revealTutorialStitch(i) {
+  tutorialRevealed[i] = true;
+  renderTutorialGrid();
+  updateTutorialAnswer();
+  checkAllRevealed();
+}
+
+function checkAllRevealed() {
+  const allDone = tutorialRevealed.every(v => v);
+  document.getElementById('look-inside-btn').disabled = !allDone;
 }
 
 function revealAllTutorialStitches() {

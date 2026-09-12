@@ -28,30 +28,45 @@
     <p class="badge">Briefing</p>
     <h2>Read the Courier's Hat</h2>
     <p>Before you encode, you must learn to read the code. Headquarters has sent you a knitted hat with your exit instructions hidden in the work.
-      The hat is a simple pattern of knit and purl stitches. Each stitch represents a dot (knit) or dash (purl) in Morse code.</p>
+      The hat is made of a simple pattern of knit and purl stitches. </p>
+    <p>Each stitch represents a dot (knit) or dash (purl) in morse code.</p>
     <p>Between each letter there are three knit stitches to signal the gap (/) between them. </p>
-    <p>Click each stitch below, left to right, to reveal which train you have to board and where you are headed.</p>
+    <p>Your fingers glide over the piece, feeling for the different textures of knit and purl stitches. 
+      Once you have decoded the message, you will know at what train you need to board.</p>
 
     <div class="stitch-grid" id="tutorial-stitches"></div>
     <p style="font-size:12px; opacity:0.65; margin-top:-6px;">↑ Click a stitch to reveal it</p>
 
-    <p><strong>Decoded message:</strong> <span id="tutorial-answer-display" style="letter-spacing:2px;">? ? ? ? ? ?</span></p>
-    
-    <p>Inside the hat you find a little folded up pice of paper - Headquarters has sent you a cheat sheet to help you decode the message. This will be helpful for encoding as well!</p>
-    <button class="secondary" onclick="toggleCheatsheet()" id="cheatsheet-toggle-btn">Show Cheat Sheet</button>
-    <div class="cheatsheet" id="cheatsheet" style="display: none;"></div>
-
     <div class="row">
-      <button onclick="showTutorialSolution()" id="tutorial-continue-btn">Understood — Continue →</button>
+      <button onclick="openHat()" id="look-inside-btn" disabled>Look inside the hat →</button>
     </div>
-  </section>
+ </section>
+
+  <section class="scene" id="scene-decode-2">
+  <p class="badge">Briefing</p>
+  <h2>Inside the Hat</h2>
+
+  <div class="stitch-grid" id="tutorial-stitches-copy"></div>
+
+
+  <p>Inside the hat you find a little folded up piece of paper — Headquarters has sent you a cheat sheet to help you decode the message. This will be helpful for encoding as well!</p>
+
+  <button class="secondary" onclick="toggleTutorialCheatsheet()" id="cheatsheet-tutorial-btn">Show Cheat Sheet</button>
+  <div class="cheatsheet" id="cheatsheet" style="display:none;"></div>
+
+  <p><strong>Decoded message:</strong> <span id="tutorial-answer-display-2" style="letter-spacing:2px;"></span></p>
+
+  <div class="row">
+    <button onclick="showTutorialSolution()" id="tutorial-continue-btn">Understood — Continue →</button>
+  </div>
+</section>
 
   <!-- SCENE 2: MISSION INTRO -->
   <section class="scene" id="scene-mission">
     <p class="badge">Orders</p>
     <h2>Your Instructions</h2>
-    <div class="npc-box">"Five sightings. Encode each in your stitches as you ride. Keep your pattern clean — too many mistakes, and the wrong eyes may notice. Deliver the finished piece in <strong id="mission-platform-ref">your destination</strong>. Godspeed."</div>
-    <p>Each time you look out the window, you'll see something worth reporting. Translate it to Morse, then knit it: <strong>knit = dot · purl = dash</strong>. The cheat sheet stays with you throughout.</p>
+    <div class="npc-box">"Look for anything out of the ordinary. Encode your observations in your stitches as you ride. Keep your knitting neat — too many mistakes, and the wrong eyes may notice. Deliver the finished piece in <strong id="mission-platform-ref">your destination</strong>. Godspeed."</div>
+    <p>Look out the window and observe your surroundings. Translate it to Morse, then knit it: <strong>knit = dot · purl = dash</strong>. The cheat sheet stays with you throughout.</p>
     <div class="progress-dots" id="mission-progress"></div>
     <button onclick="startObservation()">Look out the window →</button>
   </section>
