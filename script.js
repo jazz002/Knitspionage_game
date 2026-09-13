@@ -194,11 +194,11 @@ function revealLetter(box, letter) {
 
 /* ---------------- MISSION STATE ---------------- */
 const OBSERVATIONS = [
-  { word: 'TROOPS', text: 'Soldiers massing beside the platform — far more than usual.' },
-  { word: 'TANK', text: 'An armored vehicle idles on a flatbed car, half-covered by tarp.'},
-  { word: 'BRIDGE', text: 'Engineers inspect the rail bridge ahead, taking careful measurements.'},
-  { word: 'RADIO', text: 'An antenna mast rises from a requisitioned farmhouse roof.'},
-  { word: 'DAWN', text: 'A convoy departs just before first light, heading north.'}
+  { word: 'TROOPS', text: 'Soldiers massing beside the platform — far more than usual.', image: 'troops.jpeg'},
+  { word: 'TANK', text: 'An armored vehicle idles on a flatbed car, half-covered by tarp.', image: 'tank.jpeg'},
+  { word: 'BRIDGE', text: 'Engineers inspect the rail bridge ahead, taking careful measurements.', image: 'bridge.jpeg'},
+  { word: 'RADIO', text: 'An antenna mast rises from a requisitioned farmhouse roof.', image: 'radio.jpeg'},
+  { word: 'DAWN', text: 'A convoy departs just before first light, heading north.', image: 'dawn.jpeg'}
 ];
 
 let currentSighting = 0;
@@ -226,6 +226,8 @@ function buildEncodeScene() {
   document.getElementById('observation-text').textContent = `"${obs.text}"`;
   document.getElementById('target-word').innerHTML = `<span class="label">Word to encode:</span>${obs.word}`;
   buildCheatsheet(document.getElementById('cheatsheet-encode'));
+  document.getElementById('swatch-reveal').style.display = 'none';
+  document.getElementById('submit-btn').style.display = 'inline-block';
 
   currentEncodeSeq = [];
   obs.word.split('').forEach((ch, i) => {
@@ -311,9 +313,16 @@ function raiseSuspicion(amount) {
 }
 
 function submitRow() {
+  const obs = OBSERVATIONS[currentSighting];
+  document.getElementById('swatch-image').src = obs.image;
+  document.getElementById('swatch-reveal').style.display = 'block';
+  document.getElementById('submit-btn').style.display = 'none';
+  window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+}
+
+function proceedAfterRow() {
   currentSighting++;
 
-  // Random chance of an interruption each round (not on the very first, to let player settle in)
   const npcChance = currentSighting >= 2 ? 0.55 : 0;
   const canInterrupt = currentSighting < OBSERVATIONS.length && Math.random() < npcChance;
 
@@ -327,10 +336,22 @@ function submitRow() {
     return;
   }
 
-  proceedAfterRow();
+  if (suspicion >= 100) {
+    goTo('caught');
+    return;
+  }
+  if (currentSighting >= OBSERVATIONS.length) {
+    finishMission();
+  } else {
+    buildMissionProgress();
+    hornSound.currentTime = 0;
+    hornSound.play();
+    goTo('mission');
+  }
 }
 
 function proceedAfterRow() {
+  currentSighting++;
   if (suspicion >= 100) {
     goTo('caught');
     return;
