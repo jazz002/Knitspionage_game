@@ -133,12 +133,6 @@ function updateTutorialAnswer() {
   });
   const display1 = document.getElementById('tutorial-answer-display');
   if (display1) display1.textContent = display.trim();
-  const el2 = document.getElementById('tutorial-answer-display-2');
-  if (el2 && el2.classList.contains('hidden-answer')) {
-    // still hidden — don't spoil it
-  } else if (el2) {
-    el2.textContent = display.trim();
-  }
 }
 
 function openHat() {
@@ -146,6 +140,7 @@ function openHat() {
   const target = document.getElementById('tutorial-stitches-copy');
   target.innerHTML = grid.innerHTML;
   buildCheatsheet(document.getElementById('cheatsheet'));
+  buildLetterBoxes();
   goTo('decode-2');
 }
 
@@ -176,11 +171,23 @@ function showTutorialSolution() {
   buildMissionProgress();
 }
 
-function revealDecodedMessage() {
-  const el = document.getElementById('tutorial-answer-display-2');
-  el.textContent = TUTORIAL_WORD;
-  el.classList.remove('hidden-answer');
-  el.onclick = null;
+function buildLetterBoxes() {
+  const container = document.getElementById('letter-boxes');
+  container.innerHTML = '';
+  TUTORIAL_WORD.split('').forEach((letter, i) => {
+    const box = document.createElement('span');
+    box.className = 'letter-box hidden-letter';
+    box.textContent = '_';
+    box.onclick = () => revealLetter(box, letter);
+    container.appendChild(box);
+  });
+}
+
+function revealLetter(box, letter) {
+  box.textContent = letter;
+  box.classList.remove('hidden-letter');
+  box.classList.add('revealed-letter');
+  box.onclick = null;
 }
 
 

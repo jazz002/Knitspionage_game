@@ -54,7 +54,8 @@
   <button class="secondary" onclick="toggleTutorialCheatsheet()" id="cheatsheet-tutorial-btn">Show Cheat Sheet</button>
   <div class="cheatsheet" id="cheatsheet" style="display:none;"></div>
 
-  <p><strong>Decoded message:</strong> <span id="tutorial-answer-display-2" class="hidden-answer" onclick="revealDecodedMessage()" title="Click to reveal">_ _ _ _</span></p>
+  <p><strong>Decoded message:</strong></p>
+  <div id="letter-boxes"></div>
 
   <div class="row">
     <button onclick="showTutorialSolution()" id="tutorial-continue-btn">Understood — Continue →</button>
@@ -66,8 +67,10 @@
     <p class="badge">Orders</p>
     <h2>Your Instructions</h2>
     <div class="npc-box">"Look for anything out of the ordinary. Encode your observations in your stitches as you ride. Keep your knitting neat — too many mistakes, and the wrong eyes may notice. Deliver the finished piece in <strong id="mission-platform-ref">your destination</strong>. Godspeed."</div>
-    <p>Look out the window and observe your surroundings. Translate it to Morse, then knit it:</p> 
-    <p><strong>knit = dot · purl = dash</strong>.</p>
+    <p>You take out your knitting needles and keep working on a little plain scarf that you already started to make on the platform. You occasionally glance out of the window. When you see something unusual you translate it to morse, then knit it into your scarf:</p> 
+    <p><strong>knit = dot</strong>.</p>
+    <p><strong>purl = dash</strong>.</p>
+    <p><strong>3x knit = letter gap</strong>.</p>
     <div class="progress-dots" id="mission-progress"></div>
     <button onclick="startObservation()">Look out the window →</button>
   </section>
