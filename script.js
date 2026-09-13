@@ -260,7 +260,7 @@ function addStitch(type) {
   updateMorseProgress();
 
   if (!correct) {
-    raiseSuspicion(8);
+    raiseSuspicion(15);
     const grid = document.getElementById('encode-grid');
     grid.classList.add('shake');
     setTimeout(() => grid.classList.remove('shake'), 300);
@@ -329,7 +329,7 @@ function npcChoice(choice) {
   let delta, title, text;
 
   if (choice === 'show') {
-    delta = 5;
+    delta = 15;
     title = 'Something Seemed Off';
     text = `"Hm. Unusual pattern, but I suppose every knitter has her own style." She studies the stitches a moment too long for comfort — but doesn't realize she's looking at code. Your suspicion rises slightly.`;
   } else if (choice === 'distract') {
@@ -337,7 +337,7 @@ function npcChoice(choice) {
     title = 'Just Small Talk';
     text = `"Yes, dreadful weather for travelling," she agrees, and turns back to her own window. A short, harmless exchange — she suspects nothing at all.`;
   } else if (choice === 'hide') {
-    delta = 15;
+    delta = 25;
     title = 'A Very Suspicious Reaction';
     text = `Her eyebrows rise as you tuck the work away. "I didn't realize knitting was a state secret," she says, half-joking — but she's still watching. Hiding something harmless is, itself, the giveaway. Your suspicion rises sharply.`;
   }
@@ -352,7 +352,7 @@ function controllerChoice(choice) {
   let delta, title, text;
 
   if (choice === 'show') {
-    delta = 8;
+    delta = 15;
     title = 'A Professional Eye';
     text = `He turns the work over once, official and unhurried. "Tidy hands," he says, handing it back. He's trained to notice irregularities — and your pattern held, but only just. Your suspicion rises somewhat.`;
   } else if (choice === 'chat') {
@@ -360,7 +360,7 @@ function controllerChoice(choice) {
     title = 'Routine and Unremarkable';
     text = `You keep your hands moving as you ask after the next station. He answers without much interest and moves on down the carriage. Ordinary behaviour from an ordinary passenger — barely a ripple.`;
   } else if (choice === 'hide') {
-    delta = 20;
+    delta = 35;
     title = 'An Official Takes Note';
     text = `Concealing something from a uniformed official is a different matter entirely than from a fellow passenger. He pauses, frowns, and makes a small note in his ledger before continuing on. Your suspicion rises sharply.`;
   }
