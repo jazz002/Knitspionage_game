@@ -77,16 +77,19 @@
     <p class="badge" id="encode-counter">Sighting 1 of 3</p>
     <h2>What do you see?</h2>
 
-    <div class="window-frame">
+    
+    <p class="window-hint" id="window-hint">Look out the window — then click to focus on what matters.</p>
+
+    <div class="window-frame" id="window-clickable" onclick="revealTargetWord()">
       <div class="caption">CARRIAGE 4 · WINDOW SEAT</div>
       <div class="observation-text" id="observation-text"></div>
+      <div class="window-focus-icon" id="window-focus-icon">🔍</div>
     </div>
 
-    <button class="secondary" onclick="revealTargetWord()" id="reveal-word-btn">Secret Message</button>
     <p class="target-word" id="target-word" style="display:none;"></p>
 
-    <p>Encode this word into your knitting.</p>
-    <p>Use the cheat sheet if you need it.</p>
+    
+    <p>You have slipped the cheat sheet into your sleeve to easily access it if needed.</p>
 
     <div class="row" style="margin-top:0;">
       <button class="secondary" onclick="toggleCheatsheet()" id="cheatsheet-toggle-btn">Show Cheat Sheet</button>
