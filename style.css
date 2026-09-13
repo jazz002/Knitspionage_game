@@ -70,6 +70,19 @@ body {
     font-style: italic;
   }
 
+  .hidden-answer {
+  cursor: pointer;
+  letter-spacing: 4px;
+  border-bottom: 1px dashed var(--thread-rust);
+  color: var(--thread-rust);
+  transition: opacity 0.2s ease;
+}
+
+.hidden-answer:hover {
+  opacity: 0.7;
+}
+
+
   .window-frame {
     cursor: pointer;
   }

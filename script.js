@@ -133,7 +133,12 @@ function updateTutorialAnswer() {
   });
   const display1 = document.getElementById('tutorial-answer-display');
   if (display1) display1.textContent = display.trim();
-  document.getElementById('tutorial-answer-display-2').textContent = display.trim();
+  const el2 = document.getElementById('tutorial-answer-display-2');
+  if (el2 && el2.classList.contains('hidden-answer')) {
+    // still hidden — don't spoil it
+  } else if (el2) {
+    el2.textContent = display.trim();
+  }
 }
 
 function openHat() {
@@ -170,6 +175,15 @@ function showTutorialSolution() {
   goTo('mission');
   buildMissionProgress();
 }
+
+function revealDecodedMessage() {
+  const el = document.getElementById('tutorial-answer-display-2');
+  el.textContent = TUTORIAL_WORD;
+  el.classList.remove('hidden-answer');
+  el.onclick = null;
+}
+
+
 
 /* ---------------- MISSION STATE ---------------- */
 const OBSERVATIONS = [
