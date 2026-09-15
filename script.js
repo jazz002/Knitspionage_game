@@ -350,9 +350,24 @@ function proceedAfterRow() {
   }
 }
 
+
 function proceedAfterRow() {
-  currentSighting++;
-  if (suspicion >= 100) {
+currentSighting++;
+
+const npcChance = currentSighting >= 2 ? 0.9 : 0;
+const canInterrupt = currentSighting < OBSERVATIONS.length && Math.random() < npcChance;
+
+if (canInterrupt && !passengerInterruptionUsed) {
+  passengerInterruptionUsed = true;
+  goTo('npc');
+  return;
+} else if (canInterrupt && !controllerInterruptionUsed) {
+  controllerInterruptionUsed = true;
+  goTo('controller');
+  return;
+}
+
+if (suspicion >= 100) {
     goTo('caught');
     return;
   }
