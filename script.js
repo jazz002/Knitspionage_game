@@ -323,7 +323,7 @@ function submitRow() {
 function proceedAfterRow() {
   currentSighting++;
 
-  const npcChance = currentSighting >= 2 ? 0.85 : 0;
+  const npcChance = currentSighting >= 2 ? 0.70 : 0;
   const canInterrupt = currentSighting < OBSERVATIONS.length && Math.random() < npcChance;
 
   if (canInterrupt && !passengerInterruptionUsed) {
